@@ -34,7 +34,7 @@ app.post('/students', async (req, res) => {
 });
 
 // Route to fetch all students from the database
-app.get('/students', async (req, res) => {
+app.get('/studentslist', async (req, res) => {
     try {
         // Fetch all students from the database
         const allStudents = await Student.find();
