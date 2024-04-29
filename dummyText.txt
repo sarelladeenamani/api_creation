@@ -1,0 +1,23 @@
+dummy file is created
+
+const http = require('http'); 
+const fs = require('fs');
+
+http.createServer(function (req, res) { 
+   fs.writeFile('dummyText.txt',"dummy file is created", function(err, data) { 
+      //res.writeHead(200, {'Content-type': 'text/html'}); 
+
+       if(err)
+       {
+        console.log(err);
+       }
+       else
+       {
+        console.log(data)
+        res.write("file is created")
+       }
+    }); 
+
+    res.end();
+
+ }).listen(8080);

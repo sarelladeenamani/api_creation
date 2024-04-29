@@ -1,0 +1,52 @@
+import nodemailer from "nodemailer"
+
+const transporter = nodemailer.createTransport({
+service:"gmail",
+auth:  {
+    user:"sarelladeenamani@gmail.com",
+    pass:"tqewwxqvykcgmvlk",
+},
+});
+
+const options = {
+from:'"deena" <sarelladeenamani@gmail.com>',
+to:"saiganeshbhimavarapu88@gmail.com",
+subject:'hello',
+text: "this is the text mail using nodemailer",
+html: "<b> hello world </b>",
+attachments: [
+{
+
+    filename:'dummytext.txt',
+   content:'file is attached' 
+},
+
+]
+
+};
+
+for( var i=0;i<0;i++)
+{
+    transporter.sendMail(options,function(error,info)
+    {
+        if(error) {
+            console.log(error);
+        } else {
+            console.log('email sent 100 times ');
+        }
+        });
+
+   }
+
+
+
+
+transporter.sendMail(options,(error,info)=>{
+    if(error)
+    {
+        console.log("mail not send");
+    }
+    else{
+        console.log("mail sent");
+    }
+})
