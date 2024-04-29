@@ -1,0 +1,80 @@
+import express from'express'
+import bodyParser from 'body-parser';
+
+import connecTodb from './ConnectTodb.js';
+import student from './student.js';
+
+const app = express()
+
+ app.use(bodyParser.json())
+
+const students = [
+    { id: 1, name: "John" },
+    { id: 2, name: "Alice" },
+    { id: 3, name: "Bob" },
+    { id: 4, name: "Raju" },
+    { id: 5, name: "Ravi" },
+];
+
+
+app.get("/data",(req,res)=>{
+    res.send(students)
+
+})
+
+
+
+app.get("/data/:id",(req,res)=>{
+    let id = parseInt(req.params.id);``
+   let student =  students.find((data)=> data.id == id)
+   res.json(student);
+})
+
+app.post("/add_data",(req,res)=>{
+
+    let newdata = req.body;
+    let addeddata= {
+        id:newdata.id,
+        name:newdata.name
+    }
+    students.push(addeddata);
+    res.send({data:addeddata})
+})
+
+app.put("/update_data/:id",(req,res)=>{
+
+    let id = parseInt(req.params.id)
+
+    let stfound = students.findIndex((data)=> data.id == id)
+
+     
+
+    students[stfound] = {
+
+        id:req.body.id,
+        name:req.body.name
+    }
+
+    res.send("data updated")
+
+})
+
+
+app.delete("/delete_data/:id",(req,res)=>{
+
+    let id = req.params.id;
+
+    let found = students.findIndex((data)=>data.id == id)
+
+    students.splice(found,1)
+
+    res.send("data is deleted")
+
+})
+
+
+
+app.listen(8080,()=>{
+    connecTodb()
+    console.log("server started");
+})
